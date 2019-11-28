@@ -15,19 +15,19 @@ int main(int argc, char *argv[])
   /* Initialiseer het dynamische geheugen */
   memory_initialize();
 
-  /* Alloceer voldoende geheugen voor tien gehele getallen van 32 bits */
-  uint32_t *ptr_to_int = (uint32_t *) memory_allocate(10 * sizeof(uint32_t));
+  /* Alloceer voldoende geheugen voor tien natuurlijke getallen van 32 bits */
+  uint32_t *ptr_to_10_uint = (uint32_t *) memory_allocate(10 * sizeof(uint32_t));
 
   /* Controleer op succesvolle toekenning */
-  if (ptr_to_int != NULL)
+  if (ptr_to_10_uint != NULL)
   {
-    printf("Pointer naar het toegekend geheugen: %p\n", ptr_to_int);
+    printf("Pointer naar het toegekend geheugen: %p\n", ptr_to_10_uint);
 
     /* Vanaf hier kan je met het toegekende geheugen werken */
-    ptr_to_int[0] = 10;
+    ptr_to_10_uint[0] = 10;
 
     /* Geef het eerder toegekende geheugen weer vrij */
-    memory_release(ptr_to_int);
+    memory_release(ptr_to_10_uint);
   }
   else
   {

@@ -1,6 +1,6 @@
 # Practicum C: Dynamisch geheugenbeheer
 
-Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens het hoorcollege al kennis gemaakt hebben zoals *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden is om een eigen implementatie te voorzien van een C API die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *gelinkte lijst*.
+Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens het hoorcollege al kennis gemaakt hebben: *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden is om een C API te implementeren die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *gelinkte lijst*.
 
 ## Afspraken
 
@@ -93,7 +93,7 @@ Op computersystemen met een besturingssysteem zal `malloc` typisch met het bestu
 
 ### Opgave
 
-Tijdens dit practicum zullen jullie eenvoudige versies van de standaard C functies `malloc` en `free`moeten programmeren.  Hierbij zullen moeten nadenken hoe jullie de volgende verantwoordelijkheden zullen implementeren:
+Tijdens dit practicum zullen jullie eenvoudige versies van de standaard C functies `malloc` en `free`moeten programmeren.  Hierbij zullen jullie moeten nadenken hoe jullie de volgende verantwoordelijkheden zullen implementeren:
 
 - het initialiseren van het dynamisch geheugen en de bijbehorende boekhouding
 - het beheren van een lijst van beschikbare geheugenblokken
@@ -121,7 +121,7 @@ Het header bestand met de declaraties van de interne functies die jullie van een
 Het header bestand met de declaraties van de publieke functies die jullie van een implementatie moeten voorzien. Aan dit bestand mag niets veranderd worden.
 
 - [main.c](main.c)
-Bevat de *main* functie die het dynamisch geheugen initialiseert en die de functie oproept die jullie implementatie uitvoerig zal testen. Hierin vinden jullie ook voorbeeld code hoe dynamisch geheugen toe te wijzen en vrij te geven aan de hand van de publieke functies die memory.h ter beschikking. Aan dit bestand mag eveneens niet veranderd worden.
+Bevat de *main* functie die het dynamisch geheugen initialiseert en die de functie oproept die jullie implementatie uitvoerig zal testen. Hierin vinden jullie ook voorbeeld code hoe dynamisch geheugen toe te wijzen en vrij te geven aan de hand van de publieke functies die memory.h ter beschikking stelt. Aan dit bestand mag eveneens niet veranderd worden.
 
 - [memory.c](memory.c)
 Bevat lege definities van alle functies die jullie van een implementatie moeten voorzien. De implementatie van een aantal hulpfuncties die jullie van ons krijgen is hier ook terug te vinden. Boven de signatuur van elke functie staat in commentaar heel precies uitgelegd wat er van de functies verwacht wordt. Baseer je op deze commentaar bij het implementeren van de functies. Je mag hier eventueel hulpfuncties aan toevoegen, maar het prototype van bestaande functies mag niet veranderd worden. De functienaam, het return type en de argumenten van deze functies mogen dus niet aangepast worden.
@@ -154,27 +154,29 @@ Het header bestand *assert.h* maakt de `assert` macro beschikbaar. Deze macro is
 
 #### De heap
 
-We zullen onze eigen heap intern voorstellen door een array van HEAP_SIZE bytes groot. We verdelen de heap onder in blokken die een grootte hebben van BLOCK_SIZE bytes. Er zijn in totaal NUMBER_OF_BLOCKS (HEAP_SIZE / BLOCK_SIZE) blokken dynamisch geheugen. De constanten HEAP_SIZE, BLOCK_SIZE en NUMBER_OF_BLOCKS zijn gedefinieerd in het header bestand *memory_priv.h*.
+We zullen onze eigen heap intern voorstellen door een array van HEAP_SIZE bytes groot. We verdelen de heap onder in blokken die een grootte hebben van BLOCK_SIZE bytes. Er zijn in totaal NUMBER_OF_BLOCKS (HEAP_SIZE / BLOCK_SIZE) blokken dynamisch geheugen. De constanten HEAP_SIZE, BLOCK_SIZE en NUMBER_OF_BLOCKS zijn gedefinieerd in het header bestand [memory_priv.h](memory_priv.h).
 
-Om bij te houden welke delen van de heap beschikbaar zijn voor toekenning zullen jullie werken met een tweevoudig gelinkte lijst van deze geheugenblokken, die we de **free list** zullen noemen. Het doel van deze free list is om de beschikbare blokken van de heap op zo 'n manier met elkaar te verbinden dat elk element in de lijst wijst naar het element waarvan het adres het eerste adres van het  vorige niet toegekende geheugenblok is (of NULL bij het eerste element van de lijst) en naar het element waarvan het adres het eerste adres is van het volgende niet toegekende geheugenblok (of NULL bij het laatste element van de lijst). Door te werken met een gelinkte lijst, kunnen de operaties voor het toekennen en vrijgeven van het geheugen eenvoudig geïmplementeerd worden. De geheugenblokken die reeds in gebruik zijn (en dus niet beschikbaar voor toekenning) worden eveneens op een gelijkaardige manier in een tweevoudig gelinkte lijst bijgehouden, de **used list**. 
+Om bij te houden welke delen van de heap beschikbaar zijn voor toekenning zullen jullie werken met een tweevoudig gelinkte lijst van deze geheugenblokken, die we de **free list** zullen noemen. Het doel van deze free list is om de beschikbare blokken van de heap op zo 'n manier met elkaar te verbinden dat elk element in de lijst wijst naar het element waarvan het adres het eerste adres van het  vorige niet toegekende geheugenblok is (of NULL bij het eerste element van de lijst) en naar het element waarvan het adres het eerste adres is van het volgende niet toegekende geheugenblok (of NULL bij het laatste element van de lijst). 
 
-**Ten allen tijden moet gelden dat een blok ofwel in de free list ofwel in de used list aanwezig is en dat beide lijsten gesorteerd zijn volgens toenemend adres.**
+Door te werken met een gelinkte lijst, kunnen de operaties voor het toekennen en vrijgeven van het geheugen eenvoudig geïmplementeerd worden. De geheugenblokken die reeds in gebruik zijn (en dus niet beschikbaar voor toekenning) worden eveneens op een gelijkaardige manier in een tweevoudig gelinkte lijst bijgehouden, de **used list**. 
 
-Zowel de free list als de used list zijn van het type `struct list` wat als volgt gedefinieerd is:
+**Te allen tijde moet gelden dat een blok ofwel in de free list ofwel in de used list aanwezig is en dat beide lijsten gesorteerd zijn volgens toenemend adres.**
+
+Zowel de free list als de used list zijn van het type `struct list`. Dit struct type is als volgt gedefinieerd in [memory_priv.h](memory_priv.h):
 
 ```c
+struct list
+{
+  struct block *first;
+  struct block *last;
+};
+
 struct block
 {
   uint8_t *address;
   uint32_t alloc_count;
   struct block *prev;
   struct block *next;
-};
-
-struct list
-{
-  struct block *first;
-  struct block *last;
 };
 ```
 
@@ -184,7 +186,7 @@ Het is belangrijk dat jullie deze voorstellingswijze begrijpen vooraleer jullie 
 
 #### Interne API ([memory_priv.h](memory_priv.h))
 
-Deze sectie geeft een kort overzicht van de operaties van de interne API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we al een aantal functies geïmplementeerd.
+Deze sectie geeft een kort overzicht van de operaties van de interne API die door jullie zullen geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we al een aantal functies geïmplementeerd.
 
 ```c
 static void list_init(struct list *list);
@@ -222,9 +224,7 @@ static void list_insert_chain(struct list* list, struct block *block);
 
 #### Publieke API ([memory.h](memory.h))
 
-Deze sectie geeft een kort overzicht van de operaties van de publieke API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we de functie *memory_initialize* geïmplementeerd. De implementatie van deze functie zal jullie ook helpen om de interne voorstelling van de heap en de bijbehorende boekhouding te begrijpen.
-
-Bestudeer deze functie goed vooraleer aan de implementatie van de overige functies te beginnen!
+Deze sectie geeft een kort overzicht van de operaties van de publieke API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we de functie *memory_initialize* geïmplementeerd. De implementatie van deze functie zal jullie ook helpen om de interne voorstelling van de heap en de bijbehorende boekhouding beter te begrijpen. **Bestudeer deze functie goed vooraleer aan de implementatie van de overige functies te beginnen!**
 
 ```c
 void memory_initialize(void);
