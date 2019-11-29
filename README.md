@@ -160,8 +160,6 @@ Om bij te houden welke delen van de heap beschikbaar zijn voor toekenning zullen
 
 Door te werken met een gelinkte lijst, kunnen de operaties voor het toekennen en vrijgeven van het geheugen eenvoudig geïmplementeerd worden. De geheugenblokken die reeds in gebruik zijn (en dus niet beschikbaar voor toekenning) worden eveneens op een gelijkaardige manier in een tweevoudig gelinkte lijst bijgehouden, de **used list**. 
 
-**Te allen tijde moet gelden dat een blok ofwel in de free list ofwel in de used list aanwezig is en dat beide lijsten gesorteerd zijn volgens toenemend adres.**
-
 Zowel de free list als de used list zijn van het type `struct list`. Dit struct type is als volgt gedefinieerd in [memory_priv.h](memory_priv.h):
 
 ```c
@@ -181,6 +179,15 @@ struct block
 ```
 
 Verder voorzien we een poel van NUMBER_OF_BLOCKS `struct block` blokken die gebruikt wordt om de free list te initialiseren.
+
+Volgende **invarianten** zijn van toepassing op deze representatie:
+
+- Een blok uit de poel van blokken is ofwel een element van de used list ofwel een element van de free list.
+
+- De used list en de free list zijn gesorteerd volgens toenemend adres.
+
+- Het verschil van de adressen van elk blok en zijn opvolger is een veelvoud van BLOCK_SIZE.
+
 
 Het is belangrijk dat jullie deze voorstellingswijze begrijpen vooraleer jullie aan de slag kunnen gaan.  We verwijzen naar [memory_priv.h](memory_priv.h) en [memory.h](memory.h) voor meer details.
 
