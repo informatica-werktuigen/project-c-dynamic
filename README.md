@@ -1,6 +1,6 @@
 # Practicum C: Dynamisch geheugenbeheer
 
-Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens het hoorcollege al kennis gemaakt hebben: *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden is om een C API te implementeren die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *gelinkte lijst*.
+Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens het hoorcollege al kennis gemaakt hebben: *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden, is om een C API te implementeren die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *tweevoudig gelinkte lijst*.
 
 ## Afspraken
 
@@ -26,11 +26,11 @@ Tip: open het forum en klik bovenaan op *subscribe* om een e-mail te krijgen wan
 
 #### Gelinkte lijsten
 
-Een *gelinkte lijst* is een gegevensstructuur die vaak gebruik wordt om lijsten voor te stellen. Een gelinkte lijst is zeer flexibel omdat die het mogelijke maakt om op een efficiënte manier elementen toe te voegen en te verwijderen op eender welke positie in de lijst. Een ander voordeel is dat de grootte van een gelinkte lijst dynamisch (terwijl het programma wordt uitgevoerd) kan veranderen: er staat met andere woorden geen limiet op het aantal elementen dat je aan de lijst kan toevoegen. 
+Een *gelinkte lijst* is een gegevensstructuur die vaak gebruik wordt om lijsten voor te stellen. Een gelinkte lijst is zeer flexibel omdat die het mogelijk maakt om op een efficiënte manier elementen toe te voegen en te verwijderen op eender welke positie in de lijst. Een ander voordeel is dat de grootte van een gelinkte lijst dynamisch (terwijl het programma wordt uitgevoerd) kan veranderen: er staat met andere woorden geen limiet op het aantal elementen dat je aan de lijst kan toevoegen. 
 
 Dit staat in schril contrast met een *array*. Een array (of rij) is namelijk een ander soort gegevensstructuur die, net zoals een lijst, gebruikt kan worden om meerdere elementen van iets bij te houden maar die wel gekenmerkt wordt door een vaste grootte. Twee belangrijke nadelen van het werken met arrays is dat de programmeur op voorhand (terwijl het programma geschreven wordt) het maximaal aantal elementen moet kennen dat een array kan bevatten en dat het helemaal niet zo efficiënt is om elementen toe te voegen of te verwijderen op willekeurige posities in de rij.
 
-Een manier om in C een gelinkte lijst voor te stellen is door gebruik te maken van twee *structs*, namelijk`struct list` en`struct element`. De eerste *struct* wordt dan gebruikt als het type dat de volledige lijst voorstelt terwijl de tweede *struct* gebruikt wordt als het type van een element in de lijst. Elk element bevat een "payload", in dit geval het geheel getal `value` een een *pointer* naar het volgende element.
+Een manier om in C een gelinkte lijst voor te stellen is door gebruik te maken van twee *structs*, namelijk`struct list` en`struct element`. De eerste *struct* wordt dan gebruikt als het type dat de volledige lijst voorstelt terwijl de tweede *struct* gebruikt wordt als het type van een element in de lijst. Elk element bevat een "payload", in dit geval het geheel getal `value` en een *pointer* naar het volgende element.
 
 ```c
 struct list
@@ -153,7 +153,7 @@ De rest van de opgave zal wat dieper ingaan op een aantal aspecten van de opgave
 
 De code die jullie schrijven moet compatibel zijn met de ISO/IEC 9899:1999 C standaard, ook wel C99 genoemd. De *GCC* optie `std=c99`zal dit afdwingen. Met C99 hebben jullie toegang tot het header bestand *stdint.h* dat het type `uint8_t` definieert, een type voor getallen die 8 bits groot zijn. Wij zullen het `uint8_t` type gebruiken om bytes voor te stellen. Het header bestand *stdbool.h* definieert het Booleaanse type `bool` en de bijbehorende Booleaanse waarden `false` en `true`.
 
-Het header bestand *assert.h* maakt de `assert` macro beschikbaar. Deze macro is zeer nuttig om tijdens het maken van jullie project ervoor te zorgen dat de invarianten, de precondities en de postcondities van jullie code gehandhaafd blijven. Het bestand *memory.c* bevat al code die hiervan gebruik maakt.
+Het header bestand *assert.h* maakt de `assert` macro beschikbaar. Deze macro is zeer nuttig om tijdens het maken van jullie project ervoor te zorgen dat de invarianten, de precondities en de postcondities van jullie code gehandhaafd blijven. Het bestand [memory.c](memory.c) bevat al code die hiervan gebruik maakt.
 
 
 #### De heap
@@ -192,7 +192,7 @@ Volgende **invarianten** zijn van toepassing op deze representatie:
 
 - Het verschil van de adressen van elk blok en zijn opvolger is een veelvoud van BLOCK_SIZE.
 
-- De waarde van alloc_count in van elk blok dat een element is van de free list moet nul zijn.
+- De waarde van alloc_count in elk blok dat een element is van de free list moet nul zijn.
 
 - De waarde van alloc_count in elk blok in de used list dat het eerste blok vertegenwoordigt van een toegewezen deel van het dynamisch geheugen is het aantal aaneengesloten blokken dat gebruikt wordt voor deze toekenning.
 
@@ -241,7 +241,7 @@ static uint32_t list_remove_chain(struct list  *list,
 
 #### Publieke API ([memory.h](memory.h))
 
-Deze sectie geeft een kort overzicht van de operaties van de publieke API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we de functie *memory_initialize* geïmplementeerd. De implementatie van deze functie zal jullie ook helpen om de interne voorstelling van de heap en de bijbehorende boekhouding beter te begrijpen. **Bestudeer deze functie goed vooraleer aan de implementatie van de overige functies te beginnen!**
+Deze sectie geeft een kort overzicht van de operaties van de publieke API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we de functie *memory_initialize* al geïmplementeerd. De implementatie van deze functie zal jullie ook helpen om de interne voorstelling van de heap en de bijbehorende boekhouding beter te begrijpen. **Bestudeer deze functie goed vooraleer aan de implementatie van de overige functies te beginnen!**
 
 We raden jullie ook aan om eerst de private API te implementeren vooraleer jullie beginnen aan de publieke API. Bij de implementatie van de publieke API zullen jullie de functies van de private API kunnen gebruiken.
 
@@ -263,7 +263,7 @@ Het practicum wordt ingediend met behulp van *Git*.
 
 Je practicum moet **ten laatste op zondag 15 december 2019 om 23u59** ingeleverd worden. Alle wijzigingen aan jullie repository na deze datum zullen niet aanvaard worden, tenzij met puntenverlies.
 
-De repository moet de bestanden `memory.h`, `memory.c`, en `main.c` bevatten. Denk eraan dat jullie het bestand `memory.h`niet mogen aanpassen. Je oplossing zal gecontroleerd worden via het uitvoeren van een aantal automatische testen. Zorg er daarom voor dat je oplossing werkt in de PC klassen van gebouw 200A. Je mag tijdens het oplossen van je practicum uiteraard een andere compiler gebruiken maar wat je indient *moet* werken met *GCC*. Zo niet, wordt het niet bekeken.
+De repository moet de bestanden [memory.h](memory.h), [memory_priv.h](memory_priv.h), [memory.c](memory.c), [test.c](test.c) en [main.c](main.c) bevatten. Denk eraan dat jullie de bestanden [memory.h](memory.h), [memory_priv.h](memory_priv.h) en [main.c](main.c) niet mogen aanpassen! Je oplossing zal gecontroleerd worden via het uitvoeren van een aantal automatische testen. Zorg er daarom voor dat je oplossing werkt in de PC klassen van gebouw 200A. Je mag tijdens het oplossen van je practicum uiteraard een andere compiler gebruiken maar wat je indient *moet* werken met *GCC*. Zo niet, wordt het niet bekeken.
 
 Je kan een correcte inzending *controleren* door je eigen repository opnieuw te klonen in een tijdelijke folder. Indien alles correct is ingediend, zou de folder /tmp/project-c-dynamic na het uitvoeren van onderstaande commando 's je ingediende versie moeten bevatten.
 
@@ -293,7 +293,7 @@ In deze sectie beschrijven we kort enkele criteria die we gebruiken om een score
 
 In de eerste plaats wordt er gekeken naar een correcte, foutloze werking van je programma. Zorg ervoor dat alle functionaliteit die in de opgave gevraagd wordt aanwezig is ook in je programma. Je zal enkel kunnen slagen voor dit practicum als je werkende code oplevert.
 
-We geven geen punten voor extra (ongevraagde) functionaliteit. Je mag eigen functies toevoegen, maar hier kan je geen punten mee winnen.
+We geven geen punten voor extra (ongevraagde) functionaliteit. Je mag eigen functionaliteit toevoegen, maar hier kan je geen punten mee winnen.
 
 ### Leesbaarheid code
 
@@ -320,9 +320,8 @@ We willen jullie er nog eens op wijzen dat één van de [doelstellingen](https:/
 We hebben bij de verdediging van het vorige practicum vastgesteld dat *Git* onvoldoende gebruikt werd. Een programma zoals *Git* is echter één van de belangrijkste werktuigen waar je als informaticus mee zal moeten leren werken. Het is verstandig om regelmatig tijdens het maken van dit practicum de gewijzigde bestanden te committen en te pushen met *Git*. Zo heb je altijd een back-up van je code, kan je eerdere versies bekijken en kan je kijken wat er veranderd is over verschillende versies heen.
 
 ```bash
-$ git add memory.h
 $ git add memory.c
-$ git add main.c
+$ git add test.c
 $ git commit -m "Korte beschrijving van je wijzigingen"
 $ git push
 ```
