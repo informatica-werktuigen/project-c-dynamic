@@ -188,12 +188,17 @@ Volgende **invarianten** zijn van toepassing op deze representatie:
 
 - Het verschil van de adressen van elk blok en zijn opvolger is een veelvoud van BLOCK_SIZE.
 
+- De waarde van alloc_count in van elk blok dat een element is van de free list moet nul zijn.
+
+- De waarde van alloc_count in elk blok in de used list dat het eerste blok vertegenwoordigt van een toegewezen deel van het dynamisch geheugen is het aantal aaneengesloten blokken dat gebruikt wordt voor deze toekenning.
 
 Het is belangrijk dat jullie deze voorstellingswijze begrijpen vooraleer jullie aan de slag kunnen gaan.  We verwijzen naar [memory_priv.h](memory_priv.h) en [memory.h](memory.h) voor meer details.
 
 #### Interne API ([memory_priv.h](memory_priv.h))
 
 Deze sectie geeft een kort overzicht van de operaties van de interne API die door jullie zullen geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we al een aantal functies geïmplementeerd.
+
+We raden jullie aan om de volgorde van deze functies in [memory.c](memory.c) te volgen, aangezien deze min of meer geordend zijn via toenemende moeilijkheidsgraad.
 
 ```c
 static void list_init(struct list *list);
@@ -233,6 +238,8 @@ static uint32_t list_remove_chain(struct list  *list,
 #### Publieke API ([memory.h](memory.h))
 
 Deze sectie geeft een kort overzicht van de operaties van de publieke API die geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we de functie *memory_initialize* geïmplementeerd. De implementatie van deze functie zal jullie ook helpen om de interne voorstelling van de heap en de bijbehorende boekhouding beter te begrijpen. **Bestudeer deze functie goed vooraleer aan de implementatie van de overige functies te beginnen!**
+
+We raden jullie ook aan om eerst de private API te implementeren vooraleer jullie beginnen aan de publieke API. Bij de implementatie van de publieke API zullen jullie de functies van de private API kunnen gebruiken.
 
 ```c
 void memory_initialize(void);
