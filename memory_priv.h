@@ -33,7 +33,7 @@ struct list
 };
 
 /****************************************************************************
- * Interne variabelen om de heap voor te stellen en om de interne boekouding
+ * Interne variabelen om de heap voor te stellen en om de interne boekhouding
  * van het geheugengebruik te doen.
  ****************************************************************************/
 

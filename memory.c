@@ -1,6 +1,6 @@
 #include "memory_priv.h"
 
-/* Initalizes the given list to be the empty list.
+/* Initializes the given list to be the empty list.
  *
  * This function is already implemented for you.
  */
@@ -60,7 +60,7 @@ static void list_print_reverse(struct list *list, const char *title)
 {
 }
 
-/* Returns the block for wich the given address falls within its address
+/* Returns the block for which the given address falls within its address
  * range. The address range of a block starts with its address and ends
  * with its address + BLOCK_SIZE - 1.
  *
@@ -94,7 +94,7 @@ static uint32_t required_number_of_contiguous_blocks(uint32_t size)
 }
 
 /* Returns true when the given block has at least count number of successors
- * and the first count successors of the given block are all contigous with
+ * and the first count successors of the given block are all contiguous with
  * respect to their predecessors. Returns false otherwise.
  */
 static bool has_number_of_contiguous_blocks(const struct block *block,
@@ -103,7 +103,7 @@ static bool has_number_of_contiguous_blocks(const struct block *block,
   return false;
 }
 
-/* Initalizes the given block with the given address and appends it to the
+/* Initializes the given block with the given address and appends it to the
  * given list.
  *
  * Preconditions:
@@ -146,7 +146,7 @@ static void list_insert_chain(struct list* list, struct block *block)
 }
 
 /* Removes a chain of blocks starting with the given block from the given list,
- * without disconnnecting the individual links of the chain. At most
+ * without disconnecting the individual links of the chain. At most
  * block_count blocks will be removed. This functions aims to remove
  * as many blocks as possible with block_count as the maximum.
  *
@@ -165,7 +165,7 @@ static uint32_t list_remove_chain(struct list  *list,
   return 0;
 }
 
-/* Initializes the dynamic memory and its bookeeping.
+/* Initializes the dynamic memory and its bookkeeping.
  *
  * This function is already implemented for you. Study this function
  * thoroughly in order to understand how the heap and its bookkeeping
@@ -204,7 +204,7 @@ uint32_t memory_used(void)
  *   - if size is zero,
  *   - or if not enough contiguous memory is available
  *
- * Postcondtions:
+ * Postconditions:
  *   - After a successful allocation, the first block that represents the
  *     the beginning of the allocated memory must have its alloc_count field
  *     set to the number of contiguous blocks that was required to fulfil
