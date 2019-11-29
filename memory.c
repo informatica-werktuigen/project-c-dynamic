@@ -197,14 +197,19 @@ uint32_t memory_used(void)
   return 0;
 }
 
-/* Allocates size number of contiguous bytes and returns a pointer to the
+/* Allocates size number of *contiguous bytes* and returns a pointer to the
  * allocated memory. The memory does not have to be initialized.
  *
- * contiguous memory region
- *
  * Returns NULL,
- *   if size is zero,
- *   or if not enough contiguous memory is available
+ *   - if size is zero,
+ *   - or if not enough contiguous memory is available
+ *
+ * Postcondtions:
+ *   - After a successful allocation, the first block that represents the
+ *     the beginning of the allocated memory must have its alloc_count field
+ *     set to the number of contiguous blocks that was required to fulfil
+ *     the allocation. This information will be useful for releasing the
+ *     allocated memory.
  */
 void *memory_allocate(uint32_t size)
 {

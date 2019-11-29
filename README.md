@@ -10,7 +10,9 @@ De practica worden gequoteerd, en het examenreglement is dan ook van toepassing.
 
 De oplossing en/of programmacode die ingediend wordt moet volledig het resultaat zijn van werk dat je zelf gepresteerd hebt. Je mag je werk uiteraard bespreken met andere studenten, in de zin dat je praat over algemene oplossingsmethoden of algoritmen, maar de bespreking mag niet gaan over specifieke code of verslag tekst die je aan het schrijven bent, noch over specifieke resultaten die je wenst in te dienen. Als je het met anderen over je practicum hebt, mag dit er dus *nooit* toe leiden, dat je op om het even welk moment in het bezit bent van een geheel of gedeeltelijke kopie van het opgeloste practicum of verslag van anderen, onafhankelijk van of die code of verslag nu op papier staat of in elektronische vorm beschikbaar is, en onafhankelijk van wie de code of het verslag geschreven heeft (medestudenten, eventueel uit andere studiejaren, volledige buitenstaanders, internetbronnen, e.d.). Dit houdt tevens ook in dat er geen enkele geldige reden is om je code of verslag door te geven aan medestudenten, noch om dit beschikbaar te stellen via publiek bereikbare directories of websites. 
 
-Elke student is verantwoordelijk voor de code en het werk dat hij of zij indient. Als tijdens de beoordeling van het practicum er twijfels zijn over het feit of het practicum zelf gemaakt is (bv.~gelijkaardige code, of oplossingen met andere practica), zal de student gevraagd worden hiervoor een verklaring te geven. Indien dit de twijfels niet wegwerkt, zal er worden overgegaan tot het melden van een onregelmatigheid, zoals voorzien in het [onderwijs- en examenreglement](https://www.kuleuven.be/onderwijs/oer/) van de KU Leuven.
+Elke student is verantwoordelijk voor de code en het werk dat hij of zij indient. Als tijdens de beoordeling van het practicum er twijfels zijn over het feit of het practicum zelf gemaakt is (bv. gelijkaardige code, of oplossingen met andere practica), zal de student gevraagd worden hiervoor een verklaring te geven. Indien dit de twijfels niet wegwerkt, zal er worden overgegaan tot het melden van een onregelmatigheid, zoals voorzien in het [onderwijs- en examenreglement](https://www.kuleuven.be/onderwijs/oer/) van de KU Leuven.
+
+Alle inzendingen worden automatisch met elkaar vergeleken met behulp van plagiaatsoftware voor code. Deze software geeft een score van gelijkaardigheid aan projecten. De projecten die het meest op elkaar lijken worden nadien manueel nagekeken.
 
 ### Forum
 
@@ -43,7 +45,7 @@ struct list_element
 };
 ```
 
-Het einde van een lijst wordt voorgesteld door een `NULL` pointer.
+Het einde van een lijst wordt voorgesteld door een `NULL` pointer (adres 0x00). Deze waarde wordt gedefinieerd door de standaard C header *stdlib.h*.
 
 Onderstaande afbeelding is een weergave van een enkelvoudig gelinkte lijst met behulp van het programma *ddd*, een grafische front end voor de [GDB](https://www.gnu.org/software/gdb/) debugger.  Op het moment van de weergave bevatte de lijst in kwestie 3 elementen: 789, 123 en 202.
 
@@ -115,13 +117,13 @@ git clone https://www.github.com/<url-naar-eigen-repo>/project-c-dynamic.git
 De repository bevat volgende bestanden:
 
 - [memory_priv.h](memory_priv.h)
-Het header bestand met de declaraties van de interne functies die jullie van een implementatie moeten voorzien. Hierin vinden jullie naast de configuratie van de heap, ook de definitie van de gegevensstructuren die jullie moeten gebruiken om de interne boekhouding van het geheugengebruik bij te houden. Verder definieert dit bestand ook de interne variabelen die gebruikt worden om de heap voor te stellen en om de boekhouding te doen. Aan dit bestand mag niets veranderd worden.
+Het header bestand met de declaraties van de interne functies die jullie van een implementatie moeten voorzien. Hierin vinden jullie naast de configuratie van de heap, ook de definitie van de gegevensstructuren die jullie moeten gebruiken om de interne boekhouding van het geheugengebruik bij te houden. Verder definieert dit bestand ook de interne variabelen die gebruikt worden om de heap voor te stellen en om de boekhouding te doen. **Aan dit bestand mag niets veranderd worden.**
 
 - [memory.h](memory.h)
-Het header bestand met de declaraties van de publieke functies die jullie van een implementatie moeten voorzien. Aan dit bestand mag niets veranderd worden.
+Het header bestand met de declaraties van de publieke functies die jullie van een implementatie moeten voorzien. **Aan dit bestand mag niets veranderd worden.**
 
 - [main.c](main.c)
-Bevat de *main* functie die het dynamisch geheugen initialiseert en die de functie oproept die jullie implementatie uitvoerig zal testen. Hierin vinden jullie ook voorbeeld code hoe dynamisch geheugen toe te wijzen en vrij te geven aan de hand van de publieke functies die memory.h ter beschikking stelt. Aan dit bestand mag eveneens niet veranderd worden.
+Bevat de *main* functie die het dynamisch geheugen initialiseert en die de functie oproept die jullie implementatie uitvoerig zal testen. Hierin vinden jullie ook voorbeeld code hoe dynamisch geheugen toe te wijzen en vrij te geven aan de hand van de publieke functies die memory.h ter beschikking stelt. **Aan dit bestand mag eveneens niet veranderd worden.**
 
 - [memory.c](memory.c)
 Bevat lege definities van alle functies die jullie van een implementatie moeten voorzien. De implementatie van een aantal hulpfuncties die jullie van ons krijgen is hier ook terug te vinden. Boven de signatuur van elke functie staat in commentaar heel precies uitgelegd wat er van de functies verwacht wordt. Baseer je op deze commentaar bij het implementeren van de functies. Je mag hier eventueel hulpfuncties aan toevoegen, maar het prototype van bestaande functies mag niet veranderd worden. De functienaam, het return type en de argumenten van deze functies mogen dus niet aangepast worden.
@@ -135,7 +137,9 @@ Je kan deze bestanden compileren aan de hand van het volgende commando:
 gcc -g -std=c99 -Wall -Wno-unused-function -Werror main.c memory.c -o main
 ```
 
-Daarna kan je het programma starten door de volgende regel in te voeren:
+Voor meer informatie over de argumenten die aan *GCC* worden meegegeven, verwijzen we jullie naar de Linux man pages (`man gcc`).
+
+Wanneer het programma met succes gecompileerd is, kan je het starten door de volgende regel in te voeren:
 
 ```bash
 ./main
@@ -198,7 +202,7 @@ Het is belangrijk dat jullie deze voorstellingswijze begrijpen vooraleer jullie 
 
 Deze sectie geeft een kort overzicht van de operaties van de interne API die door jullie zullen geïmplementeerd moeten worden. Zie het bestand [memory.c](memory.c) voor een gedetailleerde beschrijving van elke functie. Om jullie op weg te helpen hebben we al een aantal functies geïmplementeerd.
 
-We raden jullie aan om de volgorde van deze functies in [memory.c](memory.c) te volgen, aangezien deze min of meer geordend zijn via toenemende moeilijkheidsgraad.
+We raden jullie aan om de volgorde van deze functies in het bestand [memory.c](memory.c) te volgen bij het maken van het practicum, aangezien deze min of meer geordend zijn volgens toenemende moeilijkheidsgraad.
 
 ```c
 static void list_init(struct list *list);

@@ -1,4 +1,4 @@
-personal_ws-1.1 nl 104 
+personal_ws-1.1 nl 106 
 title
 repository
 geheugendeel
@@ -51,6 +51,7 @@ contains
 value
 interageren
 sorted
+gelijkaardigheid
 stdint
 precondities
 heap
@@ -95,6 +96,7 @@ geheugenblok
 indentatie
 png
 arrays
+plagiaatsoftware
 length
 GitHub
 project-c-dynamic
