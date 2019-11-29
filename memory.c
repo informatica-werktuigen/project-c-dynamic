@@ -22,6 +22,79 @@ static bool block_is_valid(const struct block *block)
          );
 }
 
+/* Returns the length of the given list (the number of blocks it contains) */
+static uint32_t list_get_length(const struct list *list)
+{
+  return 0;
+}
+
+/* Prints a human representation of the given list in forward order.
+ *
+ * Expected format:
+ *
+ *   Assuming a value for title of "free list", a list with two elements, with
+ *   addresses 0x559cd4da1040 and 0x559cd4da1060 should be printed as follows:
+ *
+ *     free list:
+ *       0x559cd4da1040->0x559cd4da1060->NULL
+ *
+ * Hint: the %p printf modifier can be used to print the value of a pointer
+ */
+static void list_print(struct list *list, const char *title)
+{
+}
+
+/* Prints a human representation of the given list in reverse order.
+ *
+ * The same format as for the function "list_print" is expected.
+ */
+static void list_print_reverse(struct list *list, const char *title)
+{
+}
+
+/* Returns the block for wich the given address falls within its address
+ * range. The address range of a block starts with its address and ends
+ * with its address + BLOCK_SIZE - 1.
+ *
+ * If the given list does not contain the block, returns NULL.
+ */
+static struct block *list_find_block_by_address(const struct list *list,
+                                                const uint8_t *address)
+{
+  return NULL;
+}
+
+/* Returns true when the two given blocks are contiguous.
+ *
+ * Two blocks, left and right, are contiguous when
+ *    1) the value of left's address field is less than the value of right's
+ *    address field and 2) adding BLOCKS_SIZE to value of left's address field
+ *    gives the value of right's address field.
+ */
+static bool blocks_are_contiguous(const struct block *left,
+                                  const struct block *right)
+{
+  return false;
+}
+
+/* Returns the number of contiguous blocks that is required to satisfy
+ * an allocation request of size bytes.
+ */
+static uint32_t required_number_of_contiguous_blocks(uint32_t size)
+{
+  return 0xFFFFFFFF;
+}
+
+/* Returns true when the given block has at least count number of successors
+ * and the first count successors of the given are all ontinuous with respect
+ * to their predecessors. Returns false otherwise.
+ */
+static bool has_number_of_contiguous_blocks(const struct block *block,
+                                            uint32_t            count)
+{
+  return false;
+}
+
 /* Initalizes the given block with the given address and appends it to the
  * given list.
  *
@@ -46,56 +119,8 @@ static void list_init_block(struct list  *list,
 {
 }
 
-/* Prints a human representation of the given list in forward order.
- *
- * Assuming a value for title of "free list", a list with two elements, with
- * addresses 0x559cd4da1040 and 0x559cd4da1060 should be printed as follows:
- *
- *   free list:
- *     0x559cd4da1040->0x559cd4da1060->NULL
- */
-static void list_print(struct list *list, const char *title)
+static void list_insert_chain(struct list* list, struct block *block)
 {
-}
-
-/* Prints a human representation of the given list in reverse order. */
-static void list_print_reverse(struct list *list, const char *title)
-{
-}
-
-/* Returns the length of the given list (the number of blocks it contains) */
-static uint32_t list_get_length(const struct list *list)
-{
-  return 0;
-}
-
-/* Returns the block for wich the given address falls within its address
- * range. The address range of a block starts with its address and ends
- * with its address + BLOCK_SIZE - 1.
- *
- * If the given list does not contain the block, returns NULL.
- */
-static struct block *list_find_block_by_address(const struct list *list,
-                                                const uint8_t *address)
-{
-  return NULL;
-}
-
-static uint32_t required_number_of_contiguous_blocks(uint32_t size)
-{
-  return 0xFFFFFFFF;
-}
-
-static bool blocks_are_contiguous(const struct block *left,
-                                  const struct block *right)
-{
-  return false;
-}
-
-static bool has_number_of_contiguous_blocks(const struct block *block,
-                                            uint32_t            count)
-{
-  return false;
 }
 
 static uint32_t list_remove_chain(struct list  *list,
@@ -103,10 +128,6 @@ static uint32_t list_remove_chain(struct list  *list,
                                   uint32_t      block_count)
 {
   return 0;
-}
-
-static void list_insert_chain(struct list* list, struct block *block)
-{
 }
 
 /* Initializes the dynamic memory and its bookeeping.

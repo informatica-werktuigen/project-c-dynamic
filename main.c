@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
   /* Controleer op succesvolle toekenning */
   if (ptr_to_10_uint != NULL)
   {
-    printf("Pointer naar het toegekend geheugen: %p\n", ptr_to_10_uint);
+    printf("Pointer to allocated memory: %p\n", ptr_to_10_uint);
 
     /* Vanaf hier kan je met het toegekende geheugen werken */
     ptr_to_10_uint[0] = 10;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
   }
   else
   {
-    printf("Toekenning van geheugen mislukt.\n");
+    printf("Failed to allocate memory.\n");
   }
 
   return 0;
