@@ -139,7 +139,7 @@ static void list_init_block(struct list  *list,
  *
  * Postconditions:
  *   - the given list is ordered by ascending address
- *   - the given contains the given chain of blocks
+ *   - the given list contains the given chain of blocks
  */
 static void list_insert_chain(struct list* list, struct block *block)
 {
@@ -210,6 +210,9 @@ uint32_t memory_used(void)
  *     set to the number of contiguous blocks that was required to fulfil
  *     the allocation. This information will be useful for releasing the
  *     allocated memory.
+ *
+ * Hint: Don't forgot to update free_list and used_list
+ * Hint: The functions list_remove_chain and list_insert_chain can be useful here
  */
 void *memory_allocate(uint32_t size)
 {
@@ -225,6 +228,9 @@ void *memory_allocate(uint32_t size)
  *  - The given pointer is NULL.
  *  - The given pointer does not point to memory that was allocated by
  *    memory_allocate.
+ *
+ * Hint: Don't forgot to update free_list and used_list
+ * Hint: The functions list_remove_chain and list_insert_chain can be useful here
  */
 bool memory_release(void *ptr)
 {
