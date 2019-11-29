@@ -68,8 +68,8 @@ static struct block *list_find_block_by_address(const struct list *list,
  *
  * Two blocks, left and right, are contiguous when
  *    1) the value of left's address field is less than the value of right's
- *    address field and 2) adding BLOCKS_SIZE to value of left's address field
- *    gives the value of right's address field.
+ *    address field and 2) adding BLOCKS_SIZE to the value of left's address
+ *    field gives the value of right's address field.
  */
 static bool blocks_are_contiguous(const struct block *left,
                                   const struct block *right)
@@ -86,8 +86,8 @@ static uint32_t required_number_of_contiguous_blocks(uint32_t size)
 }
 
 /* Returns true when the given block has at least count number of successors
- * and the first count successors of the given are all ontinuous with respect
- * to their predecessors. Returns false otherwise.
+ * and the first count successors of the given block are all contigous with
+ * respect to their predecessors. Returns false otherwise.
  */
 static bool has_number_of_contiguous_blocks(const struct block *block,
                                             uint32_t            count)
@@ -103,15 +103,15 @@ static bool has_number_of_contiguous_blocks(const struct block *block,
  *   - when the list is not empty
  *     - the given address is greater than the address of the last block in
  *       the given list:
- *           block->prev->address < block->address
+ *           address > list->last->address
  *     - the given address is BLOCK_SIZE bytes greater than the address of the
  *       last block in the given list:
- *           block->prev->address + BLOCK_SIZE) == block->address
+ *           list->last->address + BLOCK_SIZE = address
  *
  * Postconditions:
  *   - the resulting list is ordered by ascending address
  *   - the last block in the resulting is the given block
- *   - the block is valid
+ 
  */
 static void list_init_block(struct list  *list,
                             struct block *block,
@@ -119,10 +119,37 @@ static void list_init_block(struct list  *list,
 {
 }
 
+/* Inserts a chain of blocks starting with the given block in the given list.
+ *
+ * Preconditions:
+ *   - the given list is ordered by ascending address
+ *   - no block in the chain of blocks that starts with the given block is
+ *     already an element of the given list
+ *   - the blocks in the given chain of blocks are ordered by ascending
+ *     address
+ *   - all blocks in the given chain of blocks are contiguous
+ *
+ * Postconditions:
+ *   - the given list is ordered by ascending address
+ *   - the given contains the given chain of blocks
+ */
 static void list_insert_chain(struct list* list, struct block *block)
 {
 }
 
+/* Removes a chain of blocks starting with the given block from the given list,
+ * without disconnnecting the individual links of the chain. At most
+ * block_count blocks will be removed. This functions aims to remove
+ * as many blocks as possible with block_count as the maximum.
+ *
+ * Preconditions:
+ *   - the given block is an element of the given list
+ *   - all blocks in the given chain of blocks are contiguous up to
+ *     block_count or up to the end of the chain if the length of the chain
+ *     is less than block_count.
+ *
+ * Returns the number of blocks that are actually removed.
+ */
 static uint32_t list_remove_chain(struct list  *list,
                                   struct block *block,
                                   uint32_t      block_count)
