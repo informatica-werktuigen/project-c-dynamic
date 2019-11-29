@@ -22,6 +22,14 @@ static bool block_is_valid(const struct block *block)
          );
 }
 
+/* Returns true if the given list contains the given block. Returns false
+ * otherwise.
+ */
+static bool list_contains(const struct list *list, const struct block *block)
+{
+  return false;
+}
+
 /* Returns the length of the given list (the number of blocks it contains) */
 static uint32_t list_get_length(const struct list *list)
 {
@@ -111,7 +119,7 @@ static bool has_number_of_contiguous_blocks(const struct block *block,
  * Postconditions:
  *   - the resulting list is ordered by ascending address
  *   - the last block in the resulting is the given block
- 
+ *   - the value of block->alloc_count is zero
  */
 static void list_init_block(struct list  *list,
                             struct block *block,
@@ -191,6 +199,8 @@ uint32_t memory_used(void)
 
 /* Allocates size number of contiguous bytes and returns a pointer to the
  * allocated memory. The memory does not have to be initialized.
+ *
+ * contiguous memory region
  *
  * Returns NULL,
  *   if size is zero,

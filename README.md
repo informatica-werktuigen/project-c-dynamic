@@ -14,7 +14,7 @@ Elke student is verantwoordelijk voor de code en het werk dat hij of zij indient
 
 ### Forum
 
-Alle vragen over het practicum, *inclusief vragen aan medestudenten*, moeten gesteld worden via het **discussieforum** op  [Toledo](https://toledo.kuleuven.be).. Alle antwoorden van assistenten op het discussieforum worden beschouwd als **deel van de opgave** en kunnen bijgevolg aanvullingen of correcties bevatten. Zorg ervoor dat je deze posts leest!
+Alle vragen over het practicum, *inclusief vragen aan medestudenten*, moeten gesteld worden via het **discussieforum** op  [Toledo](https://toledo.kuleuven.be). Alle antwoorden van assistenten op het discussieforum worden beschouwd als **deel van de opgave** en kunnen bijgevolg aanvullingen of correcties bevatten. Zorg ervoor dat je deze posts leest!
 
 Tip: open het forum en klik bovenaan op *subscribe* om een e-mail te krijgen wanneer nieuwe threads worden toegevoegd aan het forum.
 
@@ -198,36 +198,37 @@ Deze sectie geeft een kort overzicht van de operaties van de interne API die doo
 ```c
 static void list_init(struct list *list);
 
-static void list_init_block(struct list  *list,
-                            struct block *block,
-                            uint8_t      *address);
-
 static bool block_is_valid(const struct block *block);
+
+static bool list_contains(const struct list *list, const struct block *block);
+
+static uint32_t list_get_length(const struct list *list);
 
 static void list_print(struct list *list, const char *title);
 
 static void list_print_reverse(struct list *list, const char *title);
 
-static uint32_t list_get_length(const struct list *list);
-
 static struct block *list_find_block_by_address(const struct list *list,
                                                 const uint8_t *address);
-
-static uint32_t required_number_of_contiguous_blocks(uint32_t size);
 
 static bool blocks_are_contiguous(const struct block *left,
                                   const struct block *right);
 
+static uint32_t required_number_of_contiguous_blocks(uint32_t size);
+
 static bool has_number_of_contiguous_blocks(const struct block *block,
                                             uint32_t            count);
+
+static void list_init_block(struct list  *list,
+                            struct block *block,
+                            uint8_t      *address);
+
+static void list_insert_chain(struct list* list, struct block *block);
 
 static uint32_t list_remove_chain(struct list  *list,
                                   struct block *block,
                                   uint32_t      block_count);
-
-static void list_insert_chain(struct list* list, struct block *block);
 ```
-
 
 #### Publieke API ([memory.h](memory.h))
 
