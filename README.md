@@ -1,6 +1,6 @@
 # Practicum C: Dynamisch geheugenbeheer
 
-Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens het hoorcollege al kennis gemaakt hebben: *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden, is om een C API te implementeren die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *tweevoudig gelinkte lijst*.
+Het doel van dit practicum is om wat dieper in te gaan op belangrijke C concepten waarmee jullie tijdens de eerste oefenzitting al kennis gemaakt hebben: *pointers* en *dynamisch geheugenbeheer*. Een goede oefening om hiermee beter vertrouwd te worden, is om een C API te implementeren die verantwoordelijk is voor het dynamisch toekennen en vrijgeven van geheugen. Tijdens de implementatie zullen jullie ook de kans krijgen om met een belangrijke gegevensstructuur te werken, namelijk de *tweevoudig gelinkte lijst*.
 
 ## Afspraken
 
@@ -111,7 +111,7 @@ Via GitHub Classroom hebben hebben jullie toegang tot een eigen private Git repo
 De repository kan je klonen met het commando:
 
 ```bash
-git clone https://www.github.com/<url-naar-eigen-repo>/project-c-dynamic.git
+git clone https://www.github.com/informatica-werktuigen/project-c-dynamic<username>.git
 ```
 
 De repository bevat volgende bestanden:
@@ -269,7 +269,7 @@ Je kan een correcte inzending *controleren* door je eigen repository opnieuw te 
 
 ```bash
 $ cd /tmp
-$ git clone https://www.github.com/<url-naar-eigen-repo>/project-c-dynamic.git
+$ git clone https://www.github.com/informatica-werktuigen/project-c-dynamic<username>.git
 $ cd project-c-dynamic
 ```
 
@@ -284,6 +284,10 @@ De verdedigingen van het practicum zullen plaatshebben op **17 en 18 december.**
 Op de verdediging krijgen jullie één uur de tijd om enkele aanpassingen of uitbreidingen te maken op basis van jullie ingediende oplossing. Hoe duidelijker jullie code is, hoe makkelijker het zal zijn om deze uitbreidingen te maken. Hierbij mag Internet gebruikt worden, *behalve* om te communiceren met medestudenten. Nadien krijgen jullie de tijd om de oplossing te tonen en uit te leggen aan een assistent.
 
 De verdediging is een examenmoment, behandel dit ook zo. **Zorg ervoor dat je op tijd aanwezig bent op het aan jou toegekende moment.** Indien je om eender welke reden niet op tijd op de verdediging kan  geraken, neem dan zo snel mogelijk contact op met het assistententeam  zodat er gezocht kan worden naar een oplossing. *Niet komen opdagen op je verdediging, zonder enige verwittiging, zal resulteren in een nul op dit practicum*. Indien je door ziekte niet op je verdediging aanwezig kan zijn, bezorg je je ombudspersoon een doktersattest. Via de ombudspersoon kan dan een inhaalverdediging vastgelegd worden.
+
+## Oefensessies
+
+Tijdens de tweede en de derde oefensessie C, zullen jullie de kans krijgen om aan het practicum te werken en om vragen te stellen.
 
 ## Evaluatiecriteria
 

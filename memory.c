@@ -2,6 +2,9 @@
 
 /* Initializes the given list to be the empty list.
  *
+ * Preconditions:
+ *  - the given list is a valid pointer to an object of type struct list
+ *
  * This function is already implemented for you.
  */
 static void list_init(struct list *list)
