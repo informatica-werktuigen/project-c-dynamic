@@ -96,9 +96,11 @@ static uint32_t required_number_of_contiguous_blocks(uint32_t size)
   return 0xFFFFFFFF;
 }
 
-/* Returns true when the given block has at least count number of successors
- * and the first count successors of the given block are all contiguous with
- * respect to their predecessors. Returns false otherwise.
+/* - Returns true when count equals zero. 
+ * - Returns true when the given block has at least (count-1) number of 
+ *   successors and the first (count-1) successors of the given block are all 
+ *   contiguous with respect to their predecessor.
+ * - Returns false otherwise.
  */
 static bool has_number_of_contiguous_blocks(const struct block *block,
                                             uint32_t            count)
